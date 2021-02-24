@@ -141,7 +141,7 @@ public class BDD {
         String query;
         Statement stmt = null;
         try{
-            query = "INSERT INTO Director (Nombre, Apellidos) values ('" + Descripcion + "', '" + Proveedor +"', '" + Categoria +"', '" + Stock +"', '" + PC +"', '" + PV +"');";
+            query = "INSERT INTO Articulo (Descripcion, Proveedor, Categoria, UnidadesStock, PrecioCoste, PrecioVenta) VALUES ('" + Descripcion + "', '" + Proveedor +"', '" + Categoria +"', '" + Stock +"', '" + PC +"', '" + PV +"');";
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         }catch(SQLException e) { //recojo la excepción del SQL
@@ -160,7 +160,7 @@ public class BDD {
             ResultSet rs = stmt.executeQuery(query);
             //Cargamos el combo con el id separador nombre
             while (rs.next()) {
-                texto = rs.getString(1) + " - " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4);
+                texto = rs.getString(1) + " - " + rs.getString(2);
                 combo1.addItem(texto);
             }
         } catch (SQLException e) {

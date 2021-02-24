@@ -8,8 +8,6 @@ public class InsertarArticulo extends JFrame{
 
     private JPanel panel1;
     private JTextField tDescri;
-    private JTextField tPro;
-    private JTextField tCat;
     private JTextField tStock;
     private JTextField tPrecioC;
     private JTextField tPrecioV;
