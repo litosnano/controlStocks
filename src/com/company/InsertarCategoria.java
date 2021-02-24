@@ -20,7 +20,6 @@ public class InsertarCategoria extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
 
-
         insertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,6 +34,7 @@ public class InsertarCategoria extends JFrame{
             }
         });
 
+        //bottom to come back to the menu
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -151,6 +151,52 @@ public class BDD {
         }
     }
 
+    //function will modify CATEGORIA data
+    public void actualizarCategoria(String Id, String Categoria) throws Exception{
+        String query;
+        Statement stmt = null;
+        try{
+            query = "UPDATE Categoria SET NombreCategoria='"+Categoria+"'WHERE IdCategoria="+Id+";";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            stmt.close();
+        }
+    }
+
+    //function will modify PROVEEDOR data
+    public void actualizarProveedor(String Id, String Proveedor, String NIF, String Telefono) throws Exception{
+        String query;
+        Statement stmt = null;
+        try{
+            query = "UPDATE Proveedor SET NombreProveedor='"+Proveedor+"', NIF='"+NIF+"', TeléfonoContacto='"+Telefono+"' WHERE IdProveedor="+Id+";";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            stmt.close();
+        }
+    }
+
+    //function will modify ARTICULO data
+    public void actualizarArticulo(String Id, String Desc, String Prov, String Cat, String Uni, String PC, String PV) throws Exception{
+        String query;
+        Statement stmt = null;
+        try{
+            query = "UPDATE Articulo SET Descripcion='"+Desc+"', Proveedor='"+Prov+"', Categoria='"+Cat+"', UnidadesStock='"+Uni+"' " +
+                    ", PrecioCoste='"+PC+"', PrecioVenta='"+PV+"' WHERE IdArticulo="+Id+";";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            stmt.close();
+        }
+    }
+
     //function to fill Proveedor combobox
     public void rellenarComboProveedor(JComboBox combo1){
         String query = "SELECT * FROM Proveedor";
@@ -171,6 +217,23 @@ public class BDD {
     //function to fill Proveedor combobox
     public void rellenarComboCategoria(JComboBox combo1){
         String query = "SELECT * FROM Categoria";
+        String texto;
+        try {
+            Statement stmt = Main.basedatos.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            //Cargamos el combo con el id separador nombre
+            while (rs.next()) {
+                texto = rs.getString(1) + " - " + rs.getString(2);
+                combo1.addItem(texto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //function to fill Articulo combobox
+    public void rellenarComboArticulo(JComboBox combo1){
+        String query = "SELECT * FROM Articulo";
         String texto;
         try {
             Statement stmt = Main.basedatos.con.createStatement();

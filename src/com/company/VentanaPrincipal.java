@@ -63,7 +63,40 @@ public class VentanaPrincipal extends JFrame{
             }
         });
 
+        modificarCategoriaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                try{
+                    new ModificarCategoria();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
 
+        modificarProveedorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                try{
+                    new ModificarProveedor();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
 
+        modificarArticuloButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                try{
+                    new ModificarArticulo();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 }
