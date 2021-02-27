@@ -34,8 +34,6 @@ public class ModificarArticulo extends JFrame{
 
         //filling different combobox with their own information
         Main.basedatos.rellenarComboArticulo(comboBox1);
-        Main.basedatos.rellenarComboProveedor(comboProv);
-        Main.basedatos.rellenarComboCategoria(comboCat);
 
         //when an ARTICULO is selected it'll appear the data in the JTextField
         comboBox1.addActionListener(new ActionListener() {
@@ -50,6 +48,8 @@ public class ModificarArticulo extends JFrame{
                     rs = stmt.executeQuery(query);
                     if(rs.next()){
                         tDes.setText(rs.getString(2));
+                        Main.basedatos.rellenarComboProveedor(comboProv);
+                        Main.basedatos.rellenarComboCategoria(comboCat);
                         tUni.setText(rs.getString(5));
                         tPC.setText(rs.getString(6));
                         tPV.setText(rs.getString(7));
