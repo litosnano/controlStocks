@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
 public class BDD {
@@ -197,9 +198,88 @@ public class BDD {
         }
     }
 
+    //function will erase Category data
+    public void eliminarCategoria(String Id) throws Exception{
+        String query;
+        Statement stmt = null;
+        try{
+            query = "DELETE FROM Categoria WHERE IdCategoria="+Id+";";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            stmt.close();
+        }
+    }
+
+    //function will erase Proveedor data
+    public void eliminarProveedor(String Id) throws Exception{
+        String query;
+        Statement stmt = null;
+        try{
+            query = "DELETE FROM Proveedor WHERE IdProveedor="+Id+";";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            stmt.close();
+        }
+    }
+
+    //function will erase Articulo data
+    public void eliminarArticulo (String Id) throws Exception{
+        String query;
+        Statement stmt = null;
+        try{
+            query = "DELETE FROM Articulo WHERE IdArticulo="+Id+";";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            stmt.close();
+        }
+    }
+
     //function to fill Proveedor combobox
     public void rellenarComboProveedor(JComboBox combo1){
         String query = "SELECT * FROM Proveedor";
+        String texto;
+        try {
+            Statement stmt = Main.basedatos.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            //filling combo with id - name
+            while (rs.next()) {
+                texto = rs.getString(1) + " - " + rs.getString(2);
+                combo1.addItem(texto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //function to fill Proveedor Combobox that doesn't have any Articulo related
+    public void rellenarComboProveedorsinArticulo(JComboBox combo1){
+        String query = "SELECT * FROM Proveedor WHERE IdProveedor NOT IN (SELECT DISTINCT(Proveedor) FROM Articulo);";
+        String texto;
+        try{
+            Statement stmt = Main.basedatos.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                //filling combo with id - name
+                texto = rs.getString(1) + " - " + rs.getString(2);
+                combo1.addItem(texto);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    //function to fill Categoria combobox
+    public void rellenarComboCategoria(JComboBox combo1){
+        String query = "SELECT * FROM Categoria";
         String texto;
         try {
             Statement stmt = Main.basedatos.con.createStatement();
@@ -214,19 +294,18 @@ public class BDD {
         }
     }
 
-    //function to fill Proveedor combobox
-    public void rellenarComboCategoria(JComboBox combo1){
-        String query = "SELECT * FROM Categoria";
+    //function to fill Categoria Combobox that doesn't have any Articulo related
+    public void rellenarComboCategoriaSinArticulo(JComboBox combo1){
+        String query = "SELECT * FROM Categoria WHERE IdCategoria NOT IN (SELECT DISTINCT(Categoria) FROM Articulo);";
         String texto;
-        try {
+        try{
             Statement stmt = Main.basedatos.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            //Cargamos el combo con el id separador nombre
-            while (rs.next()) {
+            while(rs.next()){
                 texto = rs.getString(1) + " - " + rs.getString(2);
                 combo1.addItem(texto);
             }
-        } catch (SQLException e) {
+        }catch(SQLException e){
             e.printStackTrace();
         }
     }
