@@ -82,12 +82,12 @@
           <text value="Eliminar Categoria"/>
         </properties>
       </component>
-      <component id="f6b7e" class="javax.swing.JButton" binding="consultaStockButton" default-binding="true">
+      <component id="f6b7e" class="javax.swing.JButton" binding="listadoArtículosButton" default-binding="true">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Consulta Stock"/>
+          <text value="Listado Artículos"/>
         </properties>
       </component>
     </children>

@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class BDD {
 
@@ -127,7 +128,7 @@ public class BDD {
         String query;
         Statement stmt = null;
         try{
-            query = "INSERT INTO PROVEEDOR (NombreProveedor, NIF, TeléfonoContacto) values ('" + Nombre + "', '" + NIF +"', '" + Telefono +"');";
+            query = "INSERT INTO Proveedor (NombreProveedor, NIF, TeléfonoContacto) values ('" + Nombre + "', '" + NIF +"', '" + Telefono +"');";
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         }catch(SQLException e) { //recojo la excepción del SQL
@@ -333,5 +334,46 @@ public class BDD {
         String[] temp;
         temp = datos.split(delimiter);
         return temp[0];
+    }
+
+    //function to obtein a list of ARTICULOS according PROVEEDOR and CATEGORIAS chose
+    public ArrayList<String> realizarBusqueda(String IdProv, String IdCat) throws Exception{
+        ArrayList<String> listaArticulos = new ArrayList<>();
+        String query = "SELECT a.Descripcion, p.NombreProveedor, c.NombreCategoria, a.UnidadesStock, a.PrecioCoste, a.PrecioVenta" +
+                " FROM Articulo a, Proveedor p, Categoria c WHERE a.Proveedor = p.IdProveedor AND a.Categoria = c.IdCategoria";
+        if(IdProv!="Selecciona una opción"){
+            query = query + " AND p.IdProveedor = " + IdProv;
+        }
+        if(IdCat!="Selecciona una opción"){
+            query = query + " AND c.IdCategoria = " + IdCat;
+        }
+        Statement stmt = null;
+        ResultSet rs = null;
+        try{
+            stmt=con.createStatement();
+            rs = stmt.executeQuery(query);
+            while(rs.next()){
+                listaArticulos.add(rs.getString(1) + " - " +
+                        rs.getString(2) + " - " +
+                        rs.getString(3) + " - " +
+                        rs.getString(4) + " - " +
+                        rs.getString(5) + " - " +
+                        rs.getString(6) + " - ");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            rs.close();
+            stmt.close();
+        }
+        return listaArticulos;
+    }
+
+    //function to split data
+    public String[] separarDatos(String datos){
+        String delimeter = " - ";
+        String [] temp;
+        temp = datos.split(delimeter);
+        return temp;
     }
 }

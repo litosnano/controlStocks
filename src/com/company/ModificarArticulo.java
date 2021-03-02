@@ -32,7 +32,7 @@ public class ModificarArticulo extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //filling different combobox with their own information
+        //filling combobox with ARTICULO's information
         Main.basedatos.rellenarComboArticulo(comboBox1);
 
         //when an ARTICULO is selected it'll appear the data in the JTextField

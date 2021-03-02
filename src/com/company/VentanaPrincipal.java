@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class VentanaPrincipal extends JFrame{
 
@@ -16,7 +17,7 @@ public class VentanaPrincipal extends JFrame{
     private JButton insertarCategoriaButton;
     private JButton modificarCategoriaButton;
     private JButton eliminarCategoriaButton;
-    private JButton consultaStockButton;
+    private JButton listadoArtículosButton;
 
     public VentanaPrincipal() {
         // setting panel
@@ -130,6 +131,17 @@ public class VentanaPrincipal extends JFrame{
                 try{
                     new EliminarArticulo();
                 }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+        listadoArtículosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                try{
+                    new ListadoArticulos();
+                }catch(Exception ex){
                     ex.printStackTrace();
                 }
             }
